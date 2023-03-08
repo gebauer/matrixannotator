@@ -1,18 +1,24 @@
 # helper
 
-
+#if (!require("BiocManager", quietly = TRUE))
+#  install.packages("BiocManager")
 #############################################################
 ################ Install and load packages ##################
 #############################################################
 installPackages <- function(packageList=c(), biocPackageList=c(), loadAll=F){
-  
+ 
+  library(devtools)
+  install_github("Displayr/d3vennR")
   if ( length(setdiff(packageList, rownames(installed.packages()))) > 0 ) {
+    
+    new.packages <- packageList[!(packageList %in% installed.packages()[,"Package"])]
+    if(length(new.packages)) install.packages(new.packages)
+    
     install.packages(setdiff(packageList, rownames(installed.packages())))
+    
   }
-  
-  if( length(setdiff(biocPackageList, rownames(installed.packages())))>0 ){source("http://bioconductor.org/biocLite.R")}
   for(package in setdiff(biocPackageList, rownames(installed.packages())) ){
-    biocLite(package)
+    BiocManager::install(package)
   }
   
   if(loadAll){

@@ -780,7 +780,7 @@ server <- function(input, output) {
     outer_grp <- "category"
     occ_full_mat <- build_occurence_table(df = values$df,main_grp = main_grp,outer_grp = outer_grp,add_id_column = TRUE)
     col <- unname(unlist(matrisome_color$division_all[unique(occ_full_mat$division)]))
-    browser()
+    # browser()
     with(occ_full_mat, donuts(x = frac, group = division, labels = category, col = col,pie_label_size = 0.7,margins = c(2,2,0,6),legend_size = 1.2, draw_legend = TRUE, title = "Complete matrisome (as published)"  ) )
   }, height = 700, width = 1000, bg="transparent")
   
